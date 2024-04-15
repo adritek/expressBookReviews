@@ -10,22 +10,21 @@ public_users.post("/register", (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
 
+    // check if username and password are provided
     if (username === undefined){
         return res.send(`Username not provided, enter a username.`);
     } else if (password === undefined) {
         return res.send(`Password not provided, enter a password`);
     }
 
+    // check if username is taken
     if (isValid(username)) {
         return res.send(`Username: ${username} already exists`);
     } else {
-        users.push(username);
+        users.push({"username": username,"password": password});
         console.log("Users: ", users);
-        res.send(`Username: ${username} added to DB`)
+        res.send(`Username: ${username} added to list of users`)
     }
-    
-
-
 });
 
 // Get the book list available in the shop

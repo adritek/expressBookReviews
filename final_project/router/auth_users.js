@@ -7,9 +7,11 @@ let users = [];
 
 //returns boolean
 const isValid = (username) => {
+    // is username in users
     let hasUsername = users.filter((user) =>  user.username === username);
 
-    if (hasUsername === username) {
+    // if username exists
+    if (hasUsername.length > 0) {
         return true;
     } else {
         return false;
@@ -31,8 +33,7 @@ const authenticatedUser = (username, password) => {
 
 //only registered users can login
 regd_users.post("/login", (req, res) => {
-  //Write your code here
-    return res.status(300).json({message: "Yet to be implemented"});
+    
 });
 
 // Add a book review
