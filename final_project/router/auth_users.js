@@ -66,8 +66,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     
     // put review
     if (books[isbn]){
-        let username = req.body.username;
-        let review = req.body.review;
+        const {username, review} = req.query;
 
         if (!username || !review) {
             res.status(400).json({message: "Username and review are required"});
