@@ -7,8 +7,25 @@ const public_users = express.Router();
 let booksArray = Object.values(books);
 
 public_users.post("/register", (req, res) => {
-  //Write your code here
-    return res.status(300).json({message: "Yet to be implemented"});
+    let username = req.body.username;
+    let password = req.body.password;
+
+    if (username === undefined){
+        return res.send(`Username not provided, enter a username.`);
+    } else if (password === undefined) {
+        return res.send(`Password not provided, enter a password`);
+    }
+
+    if (isValid(username)) {
+        return res.send(`Username: ${username} already exists`);
+    } else {
+        users.push(username);
+        console.log("Users: ", users);
+        res.send(`Username: ${username} added to DB`)
+    }
+    
+
+
 });
 
 // Get the book list available in the shop
