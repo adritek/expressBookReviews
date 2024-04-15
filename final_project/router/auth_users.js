@@ -33,7 +33,31 @@ const authenticatedUser = (username, password) => {
 
 //only registered users can login
 regd_users.post("/login", (req, res) => {
-    
+    let username = req.body.username;
+    let password = req.body.password;
+
+    // validation check username and password exist
+    if (!username || !password) {
+        return res.status(400).json({message: `Problem logging in - check username and password`});
+    }
+
+    // validation check on auth user
+    if (authenticatedUser(username, password)){
+        let accessToken = jwt.sign(
+            {data: password},
+            'access',
+            {expiresIn: 60 * 60}
+        );
+
+        req.session.authorization = {
+            accessToken,
+            username
+        }
+
+        return res.status(200).send(`${username} successfully logged in`);
+    } else {
+        return res.status(208).json({message: 'Invalide login, check username and password'})
+    }
 });
 
 // Add a book review
